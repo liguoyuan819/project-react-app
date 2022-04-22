@@ -25,6 +25,9 @@ export default class Stone extends Component{
     playerRockTag : any;
     computerImgTag : any;
     computerTextTag : any;
+    points = [0,0];
+    playerPoints: any;
+    computerPoints: any;
     playerImg = (element: any) => {
         this.playerImgTag = element;
    };
@@ -38,6 +41,14 @@ export default class Stone extends Component{
 
    computerText= (element: any) => {
         this.computerTextTag = element;
+   }
+
+   playerPointsRef = (element: any) => {
+        this.playerPoints = element;
+   }
+
+   computerPointsRef = (element: any) => {
+        this.computerPoints = element;
    }
 
     personChoice = (gameType:Number) => {
@@ -55,8 +66,23 @@ export default class Stone extends Component{
             this.randomNumber = Math.floor(Math.random() * 3);
             this.computerImgTag.src = this.choices[this.randomNumber].img;
             this.computerTextTag.innerHTML = this.choices[this.randomNumber].name;
+            this.gameRules();
+            this.playerPoints.innerHTML = this.points[0];
+            this.computerPoints.innerHTML = this.points[1];
         },2000);
     }; 
+
+    gameRules = () => {
+        if(this.playerRockTag.innerHTML === this.choices[0].name && this.computerTextTag.innerHTML === this.choices[1].name){
+            this.points[0]++;
+        } else if(this.playerRockTag.innerHTML === this.choices[1].name && this.computerTextTag.innerHTML === this.choices[2].name){
+            this.points[0]++;
+        } else if(this.playerRockTag.innerHTML === this.choices[2].name && this.computerTextTag.innerHTML === this.choices[0].name){
+            this.points[0]++;
+        } else {
+            this.points[1]++;
+        }
+    }
 
     render(){
         return <div id="container">
@@ -64,9 +90,9 @@ export default class Stone extends Component{
             <div id="game-container">
                 <div id="points">
                     <label htmlFor="playerPoints">玩家分数：</label>
-                    <span className="playerPoints"></span>
+                    <span className="playerPoints" ref={this.playerPointsRef}></span>
                     <label htmlFor="computerPoints">电脑分数：</label>
-                    <span className="computerPoints"></span>
+                    <span className="computerPoints" ref={this.computerPointsRef}></span>
                 </div>
                 <div id="choice">
                     <div id="playerChoice">
