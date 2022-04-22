@@ -11,15 +11,76 @@ export default class Stone extends Component{
         {
             id:2,
             name:'剪刀',
-            img:'/assets/img/paper.png'
+            img:'/assets/img/scissors.png'
         },
         {
             id:3,
             name:'布',
-            img:'/assets/img/scissors.png'
+            img:'/assets/img/paper.png'
         }
     ];
-    randomNumber: any;
+    randomNumber: number  = 0;
+    playerImgTag: any;
+    playerRockTag : any;
+    computerImgTag : any;
+    computerTextTag : any;
+    playerImg = (element: any) => {
+        this.playerImgTag = element;
+   };
+   rockText = (element: any) => {
+        this.playerRockTag = element;
+   }
+
+   computerImg = (element: any) => {
+        this.computerImgTag = element;
+   }
+
+   computerText= (element: any) => {
+        this.computerTextTag = element;
+   }
+
+    personChoice = (type:string) => {
+        return () => {
+            switch(type){
+                case 'rock':
+                    if(this.playerImgTag){
+                        this.playerImgTag.src = '/assets/img/rock.png';
+                    }
+                    console.log(this.playerRockTag);
+                    if(this.playerRockTag){
+                        this.playerRockTag.innerHTML = '石头';
+                    }
+                    break;
+                case 'paper':
+                    if(this.playerImgTag){
+                        this.playerImgTag.src = '/assets/img/paper.png';
+                    }
+                    if(this.playerRockTag){
+                        this.playerRockTag.innerHTML = '布';
+                    }
+                    break;
+                case 'scissors':
+                    if(this.playerImgTag){
+                        this.playerImgTag.src = '/assets/img/scissors.png';
+                    }
+                    if(this.playerRockTag){
+                        this.playerRockTag.innerHTML = '剪刀';
+                    }
+                    break;
+            }
+            this.getComputerChoice();
+        };
+    }
+
+    getComputerChoice = () => {
+        this.computerImgTag.src = '/assets/img/gif.gif';
+        this.computerTextTag.innerHTML = '';
+        setTimeout(() => {
+            this.randomNumber = Math.floor(Math.random() * 3);
+            this.computerImgTag.src = this.choices[this.randomNumber].img;
+            this.computerTextTag.innerHTML = this.choices[this.randomNumber].name;
+        },2000);
+    }; 
 
     render(){
         return <div id="container">
@@ -33,18 +94,18 @@ export default class Stone extends Component{
                 </div>
                 <div id="choice">
                     <div id="playerChoice">
-                    <img src="/assets/img/rock.png" alt="" id="playerChoiceImg"/>
-                    <h3 id="playerChoiceTxt"></h3>
+                    <img ref={this.playerImg} src="/assets/img/rock.png" alt="" id="playerChoiceImg"/>
+                    <h3 id="playerChoiceTxt" ref={this.rockText}>石头</h3>
                     </div>
                     <div id="computerChoice">
-                    <img src="/assets/img/scissors.png" alt="" id="computerChoiceImg"/>
-                    <h3 id="computerChoiceTxt"></h3>
+                    <img ref={this.computerImg} src="/assets/img/scissors.png" alt="" id="computerChoiceImg"/>
+                    <h3 ref={this.computerText} id="computerChoiceTxt">剪刀</h3>
                     </div>
                 </div>
                 <div id="buttons">
-                    <button className="btn">石头</button>
-                    <button className="btn">布</button>
-                    <button className="btn">剪刀</button>
+                    <button className="btn" onClick={this.personChoice('rock')}>石头</button>
+                    <button className="btn" onClick={this.personChoice('paper')}>布</button>
+                    <button className="btn" onClick={this.personChoice('scissors')}>剪刀</button>
                 </div>
             </div>
         </div>
