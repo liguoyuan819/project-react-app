@@ -79,6 +79,8 @@ export default class Stone extends Component{
             this.points[0]++;
         } else if(this.playerRockTag.innerHTML === this.choices[2].name && this.computerTextTag.innerHTML === this.choices[0].name){
             this.points[0]++;
+        } else if(this.playerRockTag.innerHTML === this.computerTextTag.innerHTML) {
+            
         } else {
             this.points[1]++;
         }
