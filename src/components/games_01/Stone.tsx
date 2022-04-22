@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './stone.css'
+import { GAME_TYPE } from './stoneGame'
 
 export default class Stone extends Component{
     choices = [
@@ -39,35 +40,10 @@ export default class Stone extends Component{
         this.computerTextTag = element;
    }
 
-    personChoice = (type:string) => {
+    personChoice = (gameType:Number) => {
         return () => {
-            switch(type){
-                case 'rock':
-                    if(this.playerImgTag){
-                        this.playerImgTag.src = '/assets/img/rock.png';
-                    }
-                    console.log(this.playerRockTag);
-                    if(this.playerRockTag){
-                        this.playerRockTag.innerHTML = '石头';
-                    }
-                    break;
-                case 'paper':
-                    if(this.playerImgTag){
-                        this.playerImgTag.src = '/assets/img/paper.png';
-                    }
-                    if(this.playerRockTag){
-                        this.playerRockTag.innerHTML = '布';
-                    }
-                    break;
-                case 'scissors':
-                    if(this.playerImgTag){
-                        this.playerImgTag.src = '/assets/img/scissors.png';
-                    }
-                    if(this.playerRockTag){
-                        this.playerRockTag.innerHTML = '剪刀';
-                    }
-                    break;
-            }
+            this.playerImgTag.src = this.choices.filter(item => item.id === gameType)[0].img;
+            this.playerRockTag.innerHTML = this.choices.filter(item => item.id === gameType)[0].name;
             this.getComputerChoice();
         };
     }
@@ -103,9 +79,9 @@ export default class Stone extends Component{
                     </div>
                 </div>
                 <div id="buttons">
-                    <button className="btn" onClick={this.personChoice('rock')}>石头</button>
-                    <button className="btn" onClick={this.personChoice('paper')}>布</button>
-                    <button className="btn" onClick={this.personChoice('scissors')}>剪刀</button>
+                    <button className="btn" onClick={this.personChoice(GAME_TYPE.ROCK)}>石头</button>
+                    <button className="btn" onClick={this.personChoice(GAME_TYPE.PAPER)}>布</button>
+                    <button className="btn" onClick={this.personChoice(GAME_TYPE.SCISSORS)}>剪刀</button>
                 </div>
             </div>
         </div>
