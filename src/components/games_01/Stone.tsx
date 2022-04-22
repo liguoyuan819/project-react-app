@@ -90,9 +90,9 @@ export default class Stone extends Component{
             <div id="game-container">
                 <div id="points">
                     <label htmlFor="playerPoints">玩家分数：</label>
-                    <span className="playerPoints" ref={this.playerPointsRef}></span>
+                    <span className="playerPoints" ref={this.playerPointsRef}>{this.points[0]}</span>
                     <label htmlFor="computerPoints">电脑分数：</label>
-                    <span className="computerPoints" ref={this.computerPointsRef}></span>
+                    <span className="computerPoints" ref={this.computerPointsRef}>{this.points[1]}</span>
                 </div>
                 <div id="choice">
                     <div id="playerChoice">
